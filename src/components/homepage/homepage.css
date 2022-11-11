@@ -1,0 +1,238 @@
+.TicketDisplay{
+display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(240px, 0fr));
+ padding: 5px 10px;
+ gap: 80px;
+}
+.ticket-show{
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #000;
+    padding: 5px 15px;
+}
+.ticket-date-div{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.ticket-status-div{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px;
+}
+.ticketadd-button{
+    background-color: #d85e54;
+  border-radius: 8px;
+  border-color: #d85e54;
+  border-width: 0px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  padding: 10px 35px;
+}
+.ticket-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+}
+.popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: rgba(0,0,0, 0.5);
+  }
+  .popup_inner {
+    position: absolute;
+    left: 20%;
+    right: 25%;
+    top: 30%;
+    bottom: 25%;
+    height: max-content;
+    width: max-content;
+    margin: auto;
+    background: white;
+    border-radius: 15px;
+}
+/*Tags CSS*/
+.projectmedia-tags-input {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    min-height: 50px;
+    width: 30vw;
+    padding: 0 8px;
+    border: 1px solid rgba(8, 32, 50, 0.8);
+    border-radius: 5px;
+  }
+  .projectmedia-tags-input:focus-within {
+    border: 1px solid rgba(8, 32, 50, 0.8);
+  }
+  .projectmedia-tags-input input {
+    flex: 1;
+    border: none;
+    height: 46px;
+    font-size: 14px;
+    padding: 4px 0 0 0;
+  }
+  .projectmedia-tags-input input:focus {
+    outline: transparent;
+  }
+  .projectmedia-tags {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 8px 0 0 0;
+    gap: 5px;
+  }
+  .projectmedia-tag {
+    /* width: auto;
+      height: 32px; */
+    width: auto;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    padding: 0 8px;
+    font-size: 14px;
+    list-style: none;
+    border-radius: 6px;
+    margin: 0 8px 8px 0;
+    background: #082032;
+  }
+  .projectmedia-tag .projectmedia-tag-title {
+    margin-top: 3px;
+  }
+  .projectmedia-tag .projectmedia-tag-close-icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    font-size: 14px;
+    margin-left: 8px;
+    color: #fff;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .projectmedia-document-about{
+    resize:none;
+      overflow: hidden;
+      /* height: 150px; */
+      padding: 30px 20px;
+      width: 60vw;
+      border-radius: 5px;
+      color: #082032;
+      font-family: Poppins;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0;
+  }
+  .projectmedia-information-input {
+    height: 50px;
+    padding: 10px 20px;
+    width: 60vw;
+    border-radius: 5px;
+    color: #082032;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    border: 1px solid rgba(8, 32, 50, 0.8);
+  }
+  .projectmedia-documenttitleform-text{
+    color: black;
+    font-weight: 600;
+    font-family: "Poppins";
+    font-size: 18px;
+}
+.projectmedia-document-form-main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 20px;
+}
+.projectmedia-document-buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  .projectmedia-document-cancel-btn{
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    border: 1px solid #082032;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 10px 35px;
+  }
+  .projectmedia-document-Update-btn {
+    background-color: #d85e54;
+    border-radius: 8px;
+    border-color: #d85e54;
+    border-width: 0px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+    padding: 10px 35px;
+  }
+  .projectmedia-information-propType {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .projectmedia-information-text {
+    color: black;
+    font-weight: 600;
+    font-family: "Poppins";
+    font-size: 16px;
+  }
+  .ticket-date-parent{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .ticket-date-category{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  .ticket-date-input {
+    height: 30px;
+    padding: 10px 20px;
+    width: 30vw;
+    border-radius: 5px;
+    color: #082032;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    border: 1px solid rgba(8, 32, 50, 0.8);
+  }

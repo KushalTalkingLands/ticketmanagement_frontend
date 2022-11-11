@@ -1,0 +1,69 @@
+.single-ticket-button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+}
+.single-ticket-back-button{
+    height: max-content;
+    padding: 16px;
+    width: 300px;
+    border-radius: 5px;
+    background-color: #000;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: Poppins;
+    border-color: transparent;
+    text-decoration-color: aliceblue;
+}
+.single-ticket-delete-button{
+    height: max-content;
+    padding: 16px;
+    width: 300px;
+    border-radius: 5px;
+    background-color: #D85E54;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: Poppins;
+    border-color: transparent;
+    text-decoration-color: aliceblue;
+}
+.single-ticket-text{
+  color: black;
+  font-weight: 600;
+  font-family: "Poppins";
+  font-size: 16px;
+}
+.single-ticket-category{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.single-ticket-category-list{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.single-ticket-date{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.single-ticket-desc{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
