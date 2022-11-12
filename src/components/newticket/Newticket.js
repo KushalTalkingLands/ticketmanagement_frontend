@@ -18,7 +18,6 @@ const Ticket=(props)=>{
     useEffect(()=>{
         axios.get(`http://localhost:3000/tickets/${id}`)
         .then((res)=>{
-            console.log(res.data);
             setticket(res.data)})
     },[])
 
@@ -42,7 +41,6 @@ const Ticket=(props)=>{
                 axios.delete(`http://localhost:3000/tickets/${id}`)
                 .then((res)=>{
                     Swal.fire({icon: 'success', title: 'Ticket Removed Successfully'});
-                console.log(res.data);
                 navigate('/') 
             })
             }

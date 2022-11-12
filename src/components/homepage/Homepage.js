@@ -27,9 +27,7 @@ const HomePage =()=>{
         
         const response = await axios.get("http://localhost:3000/tickets");
     
-        console.log(response)
         const { data } = response;
-        console.log(data);
         setticket(data);
     }
     //Function to open Pop-up

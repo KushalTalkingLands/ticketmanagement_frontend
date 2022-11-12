@@ -19,9 +19,7 @@ const Admin_dashboard=()=>{
         
         const response = await axios.get("http://localhost:3000/tickets");
     
-        console.log(response)
         const { data } = response;
-        console.log(data);
         setticket(data);
     }
     const handleOpenTicket=(e,id)=>{
