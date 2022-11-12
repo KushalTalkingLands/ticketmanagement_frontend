@@ -1,0 +1,48 @@
+.admin-single-ticket-back-button{
+    background-color: #000;
+  border-radius: 8px;
+  border-color: #000;
+  border-width: 0px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  padding: 10px 35px;
+  cursor: pointer;
+}
+.admin-single-ticket-delete-button{
+    background-color: red;
+    border-radius: 8px;
+    border-color: red;
+    border-width: 0px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+    padding: 10px 35px;
+    cursor: pointer;
+}
+.admin-single-ticket-Update-btn{
+    background-color: #d85e54;
+  border-radius: 8px;
+  border-color: #d85e54;
+  border-width: 0px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  padding: 10px 35px;
+  cursor: pointer;
+}
+.admin-single-ticket-buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    justify-content: space-around;
+}

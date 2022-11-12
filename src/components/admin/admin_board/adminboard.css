@@ -1,0 +1,10 @@
+.admin-ticket-segregation-div{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+.TicketDisplay-admin{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 5px 10px;
+}

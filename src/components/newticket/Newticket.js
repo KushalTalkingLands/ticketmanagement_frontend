@@ -7,10 +7,14 @@ import { useNavigate } from "react-router";
 import Swal from 'sweetalert2';
 
 const Ticket=(props)=>{
+
+    //Variable Declarartions
     const params =useParams();
     const id = params.id;
     const navigate = useNavigate();
     const [ticket,setticket]=useState();
+
+    //UseEffect to Get Single Ticket
     useEffect(()=>{
         axios.get(`http://localhost:3000/tickets/${id}`)
         .then((res)=>{
@@ -18,10 +22,12 @@ const Ticket=(props)=>{
             setticket(res.data)})
     },[])
 
+    //function to handle back button
     const handlePrev=()=>{
         navigate(`/`)
     }
 
+    //Function to handle delete button
     const handleDelete=()=>{
         Swal.fire({
             title: 'Are you sure?',
@@ -37,7 +43,7 @@ const Ticket=(props)=>{
                 .then((res)=>{
                     Swal.fire({icon: 'success', title: 'Ticket Removed Successfully'});
                 console.log(res.data);
-                navigate('/')
+                navigate('/') 
             })
             }
           })
@@ -73,6 +79,10 @@ const Ticket=(props)=>{
             <div className="single-ticket-desc">
                 <p className="single-ticket-text">Description :-</p>
                 <p className="single-ticket-info-text">{ticket ? ticket.description:"Ticket Description"}</p>
+            </div>
+            <div className="single-ticket-desc">
+                <p className="single-ticket-text">Remarks Given By Mechanic :-</p>
+                <p className="single-ticket-info-text">{ticket.remarks ? ticket.remarks:"Remarks Not Given Any!"}</p>
             </div>
             <div className="single-ticket-status">
                 <p className="single-ticket-text">Status :-</p>

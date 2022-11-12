@@ -1,10 +1,12 @@
-import react, { useEffect,useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import Title from '../header/Header';
 import "./homepage.css";
 import axios from 'axios';
-import {Link,useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import Swal from 'sweetalert2';
 const HomePage =()=>{
 
+  //All the variable declarations
     const [ticket,setticket]=useState();
     const [showPopup,setshowPopup]=useState(false);
     const [title,settitle]=useState();
@@ -12,12 +14,15 @@ const HomePage =()=>{
     const [tags, setTags] = useState([]);
     const [completedate,setcompletedate]=useState(Date.now());
     const navigate = useNavigate();
+    var currdate = new Date();
+    var currentDate = currdate.toISOString().slice(0, 10);
 
-
+  //Use-Effect to get tickets on first time load
     useEffect(()=>{
         getSomeDataWithAsync();
     },[])
     
+    //Function to get data 
     async function getSomeDataWithAsync() {
         
         const response = await axios.get("http://localhost:3000/tickets");
@@ -27,24 +32,30 @@ const HomePage =()=>{
         console.log(data);
         setticket(data);
     }
+    //Function to open Pop-up
     const togglePopup=()=>{
         setshowPopup(true);
     }
+    //Fucntion to close Pop-Up
     const ClosePopup=()=>{
         setshowPopup(false);
     }
+    //Function to handle title of ticket
     const handleTitle=(e)=>{
         const newTitle = e.target.value;
         settitle(newTitle)
     }
+    //Function to handle description of ticket
     const handleDescription=(e)=>{
         const newDesc = e.target.value;
         setdescription(newDesc)
     }
+    //Function to handle date of ticket
     const handleCompleteDate=(e)=>{
         const newDate = e.target.value;
         setcompletedate(newDate)
     }
+    //Function to handle category
     const removeTags = (indexToRemove) => {
         setTags([...tags.filter((_, index) => index !== indexToRemove)]);
       };
@@ -56,19 +67,21 @@ const HomePage =()=>{
           }
         }
       };
-
+      //Function to navigate to single-ticket page
       const handleOpenTicket=(e,id)=>{
         navigate(`tickets/${id}`);
       }
 
+      //data format to sumbmit
       const data={
         title:title,
         description:description,
         date:completedate,
         category:tags,
-        status:"open"
+        status:"Open"
       }
 
+      //Fucntion to handle Submit of Ticket
       const handleTicketSubmit=(e)=>{
         e.preventDefault();
         axios.post("http://localhost:3000/tickets",data)
@@ -76,7 +89,10 @@ const HomePage =()=>{
             if(res.status===201){
             setTags([]);settitle("");setcompletedate("");setdescription("");setshowPopup(false);
             axios.get("http://localhost:3000/tickets")
-            .then((res)=>{setticket(res.data)})
+            .then((res)=>{
+              setticket(res.data);
+              Swal.fire({icon: 'success', title: 'Ticket Added Successfully'});
+            })
             }
         })
         .catch((err)=>{console.log(err)})
@@ -146,6 +162,8 @@ const HomePage =()=>{
                         className="ticket-date-input"
                         value={completedate}
                         onChange={handleCompleteDate}
+                        max={currentDate}
+                        min={currentDate}
                       />
                   </div>
                   </div>
@@ -162,7 +180,7 @@ const HomePage =()=>{
                         </div>
                   <div className="projectmedia-document-buttons">
                           <button onClick={ClosePopup} className="projectmedia-document-cancel-btn">Cancel</button>
-                          <button className="projectmedia-document-Update-btn" onClick={handleTicketSubmit}>Submit</button>
+                          <button className="projectmedia-document-Update-btn" disabled={(!title)||(!description)||(!completedate)||(!tags) ? true:false} onClick={handleTicketSubmit}>Submit</button>
                         </div>
                         </div>
                       </div>

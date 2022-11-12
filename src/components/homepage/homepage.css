@@ -10,6 +10,7 @@ display: grid;
     flex-direction: column;
     border: 2px solid #000;
     padding: 5px 15px;
+    cursor: pointer;
 }
 .ticket-date-div{
     display: flex;
@@ -35,6 +36,7 @@ display: grid;
   line-height: 24px;
   color: #ffffff;
   padding: 10px 35px;
+  cursor: pointer;
 }
 .ticket-header{
     display: flex;
@@ -198,6 +200,11 @@ display: grid;
     line-height: 24px;
     color: #ffffff;
     padding: 10px 35px;
+    cursor: pointer;
+  }
+  .projectmedia-document-Update-btn:disabled{
+    background-color: rgba(183, 180, 180, 0.497);
+  color: #000;
   }
   .projectmedia-information-propType {
     display: flex;
