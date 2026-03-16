@@ -1,10 +1,11 @@
 import React,{useEffect, useState} from "react";
 import Title from "../header/Header";
-import "./newticket.css";
 import {useParams} from 'react-router';
 import axios from 'axios';
 import { useNavigate } from "react-router";
 import Swal from 'sweetalert2';
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 
 const Ticket=(props)=>{
 
@@ -19,7 +20,7 @@ const Ticket=(props)=>{
         axios.get(`http://localhost:3000/tickets/${id}`)
         .then((res)=>{
             setticket(res.data)})
-    },[])
+    },[id])
 
     //function to handle back button
     const handlePrev=()=>{
@@ -49,44 +50,90 @@ const Ticket=(props)=>{
     return(
         <>
         <Title/>
-        <div className="single-ticket-button">
-            <button className="single-ticket-back-button" onClick={handlePrev}>Go Back</button>
-            <button className="single-ticket-delete-button" onClick={handleDelete}>Delete Ticket</button>
-        </div>
-        <div className="single-ticket-main-div">
-            <div className="single-ticket-head">
-            <h1 className="single-ticket-title">{ticket ? ticket.title:"Ticket Title"}</h1>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3 items-stretch justify-between md:flex-row md:items-center">
+            <div className="flex gap-3">
+              <Button
+                variant="outline"
+                className="w-full md:w-auto"
+                onClick={handlePrev}
+              >
+                Go Back
+              </Button>
+              <Button
+                variant="default"
+                className="bg-rose-600 hover:bg-rose-700 w-full md:w-auto"
+                onClick={handleDelete}
+              >
+                Delete Ticket
+              </Button>
             </div>
-            <div className="single-ticket-info">
-            <div className="single-ticket-date">
-                <p className="single-ticket-text">Issue Date :-</p>
-                <p className="single-ticket-info-text">{ticket ? ticket.date:"Ticket Issue Date"}</p>
+          </div>
+
+          <div className="rounded-xl border border-border bg-slate-900/70 p-4 sm:p-6 shadow-lg space-y-4">
+            <div className="text-center">
+              <h1 className="text-2xl sm:text-3xl font-semibold text-slate-50">
+                {ticket ? ticket.title : "Ticket Title"}
+              </h1>
             </div>
-            <div className="single-ticket-category">
-                <p className="single-ticket-text">Category :-</p>
-                <div className="single-ticket-category-list">
-                {ticket ? ticket.category.map((d,i)=>{
-                    return(
-                        <>
-                        <p className="single-ticket-info-text">{ticket.category[i]}</p>
-                        </>
-                    )
-                }):"Ticket Issue Date"}
+
+            <div className="space-y-4 text-sm sm:text-base">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+                <p className="font-semibold text-slate-100">Issue Date:</p>
+                <p className="text-slate-300">
+                  {ticket ? ticket.date : "Ticket Issue Date"}
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <p className="font-semibold text-slate-100">Category:</p>
+                <div className="flex flex-wrap gap-2">
+                  {ticket
+                    ? ticket.category.map((cat, i) => (
+                        <Badge key={i} className="bg-slate-800 text-slate-50">
+                          {cat}
+                        </Badge>
+                      ))
+                    : "Ticket Category"}
                 </div>
+              </div>
+
+              <div className="space-y-1">
+                <p className="font-semibold text-slate-100">Description:</p>
+                <p className="text-slate-300">
+                  {ticket ? ticket.description : "Ticket Description"}
+                </p>
+              </div>
+
+              <div className="space-y-1">
+                <p className="font-semibold text-slate-100">
+                  Remarks Given By Mechanic:
+                </p>
+                <p className="text-slate-300">
+                  {ticket && ticket.remarks
+                    ? ticket.remarks
+                    : "Remarks Not Given Any!"}
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+                <p className="font-semibold text-slate-100">Status:</p>
+                <Badge
+                  variant={
+                    ticket && ticket.status === "Open"
+                      ? "warning"
+                      : ticket && ticket.status === "Completed"
+                      ? "success"
+                      : ticket && ticket.status === "Closed"
+                      ? "danger"
+                      : "default"
+                  }
+                >
+                  {ticket ? ticket.status : "Ticket Status"}
+                </Badge>
+              </div>
             </div>
-            <div className="single-ticket-desc">
-                <p className="single-ticket-text">Description :-</p>
-                <p className="single-ticket-info-text">{ticket ? ticket.description:"Ticket Description"}</p>
-            </div>
-            <div className="single-ticket-desc">
-                <p className="single-ticket-text">Remarks Given By Mechanic :-</p>
-                <p className="single-ticket-info-text">{ticket.remarks ? ticket.remarks:"Remarks Not Given Any!"}</p>
-            </div>
-            <div className="single-ticket-status">
-                <p className="single-ticket-text">Status :-</p>
-                <p className="single-ticket-info-text-status">{ticket ? ticket.status:"Ticket Status"}</p>
-            </div>
-            </div>
+          </div>
         </div>
         </>
     );
