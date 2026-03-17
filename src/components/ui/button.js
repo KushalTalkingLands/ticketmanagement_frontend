@@ -8,7 +8,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-white hover:bg-primary/90 hover:shadow-lg shadow-md active:translate-y-[1px]",
+          // warm gradient primary to match header bar
+          "bg-gradient-to-r from-primary via-rose-500 to-orange-400 text-white shadow-md hover:shadow-lg hover:brightness-105 active:translate-y-[1px]",
         outline:
           "border border-slate-600 bg-transparent text-slate-100 hover:bg-slate-800/80 hover:border-slate-400",
         ghost:

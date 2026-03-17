@@ -120,16 +120,24 @@ const Ticket=(props)=>{
                 <p className="font-semibold text-slate-100">Status:</p>
                 <Badge
                   variant={
-                    ticket && ticket.status === "Open"
+                    ticket && ticket.status === "open"
                       ? "warning"
-                      : ticket && ticket.status === "Completed"
+                      : ticket && ticket.status === "completed"
                       ? "success"
-                      : ticket && ticket.status === "Closed"
+                      : ticket && ticket.status === "closed"
                       ? "danger"
                       : "default"
                   }
                 >
-                  {ticket ? ticket.status : "Ticket Status"}
+                  {ticket
+                    ? ticket.status === "open"
+                      ? "Open"
+                      : ticket.status === "in_progress"
+                      ? "In Progress"
+                      : ticket.status === "completed"
+                      ? "Completed"
+                      : ticket.status
+                    : "Ticket Status"}
                 </Badge>
               </div>
             </div>

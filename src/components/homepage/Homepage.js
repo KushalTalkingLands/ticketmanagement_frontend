@@ -100,7 +100,7 @@ const HomePage = () => {
         description: description,
         date: completedate,
         category: tags,
-        status: "Open",
+        status: "open",
       };
 
       //Fucntion to handle Submit of Ticket
@@ -130,11 +130,21 @@ const HomePage = () => {
         }
     };
 
-    const allTickets = ticket || [];
-    const openCount = allTickets.filter((t) => t.status === "Open").length;
-    const inProgressCount = allTickets.filter((t) => t.status === "InProgress").length;
-    const completedCount = allTickets.filter((t) => t.status === "Completed").length;
-    const closedCount = allTickets.filter((t) => t.status === "Closed").length;
+    const allTickets = (ticket || []).map((t) => ({
+      ...t,
+      status:
+        t.status === "Open"
+          ? "open"
+          : t.status === "InProgress"
+          ? "in_progress"
+          : t.status === "Completed"
+          ? "completed"
+          : t.status,
+    }));
+    const openCount = allTickets.filter((t) => t.status === "open").length;
+    const inProgressCount = allTickets.filter((t) => t.status === "in_progress").length;
+    const completedCount = allTickets.filter((t) => t.status === "completed").length;
+    const closedCount = allTickets.filter((t) => t.status === "closed").length;
       
     return(
         <>
@@ -340,16 +350,22 @@ const HomePage = () => {
                         </p>
                         <Badge
                           variant={
-                            item.status === "Open"
+                            item.status === "open"
                               ? "warning"
-                              : item.status === "Completed"
+                              : item.status === "completed"
                               ? "success"
-                              : item.status === "Closed"
+                              : item.status === "closed"
                               ? "danger"
                               : "default"
                           }
                         >
-                          {item.status}
+                          {item.status === "open"
+                            ? "Open"
+                            : item.status === "in_progress"
+                            ? "In Progress"
+                            : item.status === "completed"
+                            ? "Completed"
+                            : item.status}
                         </Badge>
                       </div>
                     </CardContent>
