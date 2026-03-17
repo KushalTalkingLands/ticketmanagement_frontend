@@ -1,11 +1,11 @@
 import React,{useEffect, useState} from "react";
 import Title from "../header/Header";
 import {useParams} from 'react-router';
-import axios from 'axios';
 import { useNavigate } from "react-router";
 import Swal from 'sweetalert2';
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import { api } from "../../lib/api";
 
 const Ticket=(props)=>{
 
@@ -17,7 +17,7 @@ const Ticket=(props)=>{
 
     //UseEffect to Get Single Ticket
     useEffect(()=>{
-        axios.get(`http://localhost:3000/tickets/${id}`)
+        api.get(`/tickets/${id}`)
         .then((res)=>{
             setticket(res.data)})
     },[id])
@@ -39,7 +39,7 @@ const Ticket=(props)=>{
             cancelButtonColor:'#a2a7ab'
           }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:3000/tickets/${id}`)
+                api.delete(`/tickets/${id}`)
                 .then((res)=>{
                     Swal.fire({icon: 'success', title: 'Ticket Removed Successfully'});
                 navigate('/') 

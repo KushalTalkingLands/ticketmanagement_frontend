@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react';
 import Title from '../../header/Header';
-import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { Card, CardHeader, CardTitle, CardContent } from '../../ui/card';
 import { Badge } from '../../ui/badge';
+import { api } from '../../../lib/api';
 
 const Admin_dashboard=()=>{
 
@@ -17,11 +17,13 @@ const Admin_dashboard=()=>{
     
     //Function to get data 
     async function getSomeDataWithAsync() {
-        
-        const response = await axios.get("http://localhost:3000/tickets");
-    
-        const { data } = response;
-        setticket(data);
+        try {
+          const response = await api.get("/tickets");
+          const { data } = response;
+          setticket(data);
+        } catch (error) {
+          console.error(error);
+        }
     }
     const handleOpenTicket=(e,id)=>{
         navigate(`tickets/${id}`);

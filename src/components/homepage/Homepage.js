@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Title from "../header/Header";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Button } from "../ui/button";
@@ -21,6 +20,7 @@ import {
   CardTitle,
   CardDescription,
 } from "../ui/card";
+import { api } from "../../lib/api";
 
 const HomePage = () => {
   //All the variable declarations
@@ -41,9 +41,18 @@ const HomePage = () => {
     
     //Function to get data 
     async function getSomeDataWithAsync() {
-      const response = await axios.get("http://localhost:3000/tickets");
-      const { data } = response;
-      setticket(data);
+      try {
+        const response = await api.get("/tickets/my");
+        const { data } = response;
+        setticket(data);
+      } catch (error) {
+        console.error(error);
+        Swal.fire({
+          icon: "error",
+          title: "Unable to load tickets",
+          text: "Please make sure you are logged in.",
+        });
+      }
     }
     //Function to open Pop-up
     const togglePopup = () => {
@@ -95,29 +104,30 @@ const HomePage = () => {
       };
 
       //Fucntion to handle Submit of Ticket
-      const handleTicketSubmit = (e) => {
-        e.preventDefault();
-        axios
-          .post("http://localhost:3000/tickets", data)
-          .then((res) => {
-            if (res.status === 201) {
-              setTags([]);
-              settitle("");
-              setcompletedate("");
-              setdescription("");
-              setshowPopup(false);
-              axios.get("http://localhost:3000/tickets").then((res) => {
-                setticket(res.data);
-                Swal.fire({
-                  icon: "success",
-                  title: "Ticket Added Successfully",
-                });
-              });
-            }
-          })
-          .catch((err) => {
-            console.log(err);
+      const handleTicketSubmit = async (e) => {
+      e.preventDefault();
+        try {
+          const res = await api.post("/tickets", data);
+          if (res.status === 201) {
+            setTags([]);
+            settitle("");
+            setcompletedate("");
+            setdescription("");
+            setshowPopup(false);
+            const refreshed = await api.get("/tickets/my");
+            setticket(refreshed.data);
+            Swal.fire({
+              icon: "success",
+              title: "Ticket Added Successfully",
+            });
+          }
+        } catch (err) {
+          console.log(err);
+          Swal.fire({
+            icon: "error",
+            title: "Could not create ticket",
           });
+        }
     };
 
     const allTickets = ticket || [];

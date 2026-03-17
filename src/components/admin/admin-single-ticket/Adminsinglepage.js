@@ -1,12 +1,12 @@
 import React,{useState,useEffect} from 'react';
 import { useParams } from 'react-router';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router';
 import Title from '../../header/Header';
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
 import { Textarea } from '../../ui/textarea';
+import { api } from '../../../lib/api';
 
 const AdminSingleTicket =()=>{
     //Variable Declarartions
@@ -23,7 +23,7 @@ const AdminSingleTicket =()=>{
 
     //UseEffect to Get Single Ticket
     useEffect(()=>{
-        axios.get(`http://localhost:3000/tickets/${id}`)
+        api.get(`/tickets/${id}`)
         .then((res)=>{
             console.log(res.data);
             setticket(res.data);
@@ -52,7 +52,7 @@ const AdminSingleTicket =()=>{
             cancelButtonColor:'#a2a7ab'
           }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:3000/tickets/${id}`)
+                api.delete(`/tickets/${id}`)
                 .then((res)=>{
                     Swal.fire({icon: 'success', title: 'Ticket Removed Successfully'});
                 console.log(res.data);
@@ -105,10 +105,9 @@ const AdminSingleTicket =()=>{
       //Fucntion to handle Submit of Ticket
       const handleUpdateTicket=(e)=>{
         e.preventDefault();
-        axios.patch(`http://localhost:3000/tickets/${id}`,data)
+        api.patch(`/tickets/${id}`,data)
         .then((res)=>{
             if(res.status===200){
-            // setTags([]);settitle("");setcompletedate("");setdescription("");
             Swal.fire({icon: 'success', title: 'Ticket Updated Successfully'});
             }
         })
