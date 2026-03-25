@@ -57,6 +57,7 @@ const Admin_dashboard = () => {
   const [draggedId, setDraggedId] = useState(null);
   const [activeColumn, setActiveColumn] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [assignTechnicianName, setAssignTechnicianName] = useState('');
 
   const navigate = useNavigate();
 
@@ -153,6 +154,7 @@ const Admin_dashboard = () => {
     try {
       await api.patch(`/tickets/${id}`, {
         status: columnKey,
+        technicianName: assignTechnicianName || undefined,
       });
     } catch (error) {
       console.error(error);
@@ -160,6 +162,7 @@ const Admin_dashboard = () => {
       setTickets(prevTickets);
     } finally {
       setIsUpdating(false);
+      setAssignTechnicianName('');
     }
   };
 
@@ -168,21 +171,38 @@ const Admin_dashboard = () => {
       <div className="space-y-4">
         <Title state={true} />
 
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <div className="text-sm text-slate-200">
-            Admin overview of all tickets in a Kanban-style board.
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <div className="space-y-1 max-w-md">
+            <div className="text-sm font-semibold text-slate-900">
+              Admin Kanban board
+            </div>
+            <p className="text-xs text-slate-600">
+              Drag tickets between columns to update status. Optionally type a
+              technician name, then drag a ticket to assign it.
+            </p>
           </div>
-          <div className="flex flex-wrap gap-2 md:gap-3">
+          <div className="flex flex-wrap gap-2 md:gap-3 items-center">
             <Input
               placeholder="Search by title or vehicle..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="h-9 w-full max-w-xs bg-slate-900/60 text-slate-50 placeholder:text-slate-400"
+              className="h-9 w-full max-w-xs bg-white/80 text-slate-900 placeholder:text-slate-500"
             />
+            <div className="flex flex-col gap-1">
+              <span className="text-[11px] font-medium text-slate-700">
+                Assign technician
+              </span>
+              <Input
+                placeholder="Type name, then drag a ticket"
+                value={assignTechnicianName}
+                onChange={(e) => setAssignTechnicianName(e.target.value)}
+                className="h-9 w-full max-w-xs bg-white/80 text-slate-900 placeholder:text-slate-500"
+              />
+            </div>
             <select
               value={technicianFilter}
               onChange={(e) => setTechnicianFilter(e.target.value)}
-              className="h-9 rounded-md border border-slate-600 bg-slate-900/80 px-2 text-sm text-slate-100"
+              className="h-9 rounded-md border border-slate-400 bg-white/90 px-2 text-sm text-slate-900"
             >
               <option value="all">All technicians</option>
               {technicians.map((name) => (
@@ -194,7 +214,7 @@ const Admin_dashboard = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="h-9 rounded-md border border-slate-600 bg-slate-900/80 px-2 text-sm text-slate-100"
+              className="h-9 rounded-md border border-slate-400 bg-white/90 px-2 text-sm text-slate-900"
             >
               <option value="all">All statuses</option>
               {COLUMNS.map((col) => (
@@ -206,7 +226,7 @@ const Admin_dashboard = () => {
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-3 text-slate-900">
           {COLUMNS.map((column) => (
             <div
               key={column.key}
@@ -247,25 +267,25 @@ const Admin_dashboard = () => {
                         draggable
                         onDragStart={(e) => handleDragStart(e, tkt.id)}
                         onClick={(e) => handleOpenTicket(e, tkt.id)}
-                        className={`cursor-pointer bg-slate-900/80 text-slate-50 transition-all ${
+                        className={`cursor-pointer bg-slate-900 text-slate-50 transition-all ${
                           draggedId === tkt.id
                             ? 'scale-[0.97] opacity-60 shadow-lg ring-2 ring-sky-400/70'
                             : 'hover:scale-[1.01] hover:shadow-md'
                         }`}
                       >
                         <CardHeader className="flex flex-row items-start justify-between pb-2">
-                          <CardTitle className="line-clamp-2 text-sm font-semibold">
+                          <CardTitle className="line-clamp-2 text-sm font-semibold text-white">
                             {tkt.title}
                           </CardTitle>
                           <Badge variant={column.badgeVariant} className="ml-2">
                             {column.label}
                           </Badge>
                         </CardHeader>
-                        <CardContent className="space-y-2 pt-1 text-xs text-slate-300">
+                        <CardContent className="space-y-2 pt-1 text-xs text-slate-200">
                           <div className="flex items-center justify-between">
                             <div className="flex flex-col gap-0.5">
                               <span className="text-slate-400">Vehicle</span>
-                              <span className="font-medium text-slate-100">
+                              <span className="font-medium text-slate-50">
                                 {tkt.vehicle || '—'}
                               </span>
                             </div>

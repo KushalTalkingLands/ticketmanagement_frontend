@@ -29,6 +29,7 @@ const HomePage = () => {
     const [title, settitle] = useState("");
     const [description, setdescription] = useState("");
     const [tags, setTags] = useState([]);
+    const [vehicle, setVehicle] = useState("");
     const [completedate, setcompletedate] = useState(Date.now());
     const navigate = useNavigate();
     var currdate = new Date();
@@ -72,6 +73,10 @@ const HomePage = () => {
       const newDesc = e.target.value;
       setdescription(newDesc);
     };
+    //Function to handle vehicle
+    const handleVehicle = (e) => {
+      setVehicle(e.target.value);
+    };
     //Function to handle date of ticket
     const handleCompleteDate = (e) => {
       const newDate = e.target.value;
@@ -98,6 +103,7 @@ const HomePage = () => {
       const data = {
         title: title,
         description: description,
+        vehicle: vehicle,
         date: completedate,
         category: tags,
         status: "open",
@@ -112,6 +118,7 @@ const HomePage = () => {
             setTags([]);
             settitle("");
             setcompletedate("");
+            setVehicle("");
             setdescription("");
             setshowPopup(false);
             const refreshed = await api.get("/tickets/my");
@@ -220,22 +227,40 @@ const HomePage = () => {
             <Dialog open={showPopup} onOpenChange={setshowPopup}>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Raise a New Ticket</DialogTitle>
+                  <DialogTitle className="text-xl text-slate-50">
+                    Raise a New Ticket
+                  </DialogTitle>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Tell us what&apos;s happening with your vehicle so a technician can help.
+                  </p>
                 </DialogHeader>
                 <form
                   className="mt-4 space-y-5"
                   onSubmit={handleTicketSubmit}
                 >
                   <div className="space-y-2">
-                    <label className="projectmedia-information-text">
-                      Title
-                    </label>
+                    <p className="text-sm font-semibold text-slate-100">
+                      Ticket title
+                    </p>
                     <Input
                       type="text"
                       required
-                      placeholder="Title of the Ticket"
+                      placeholder="Short summary of the issue"
                       value={title}
                       onChange={handleTitle}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <p className="text-sm font-semibold text-slate-100">
+                      Vehicle
+                    </p>
+                    <Input
+                      type="text"
+                      required
+                      placeholder="e.g. Hyundai i20, KA01 AB 1234"
+                      value={vehicle}
+                      onChange={handleVehicle}
                     />
                   </div>
 
@@ -288,8 +313,8 @@ const HomePage = () => {
 
                   <div className="w-full">
                     <Textarea
-                      className="w-full min-h-[120px]"
-                      placeholder="Description"
+                      className="w-full min-h-[120px] bg-slate-950/70 border border-slate-700 text-slate-50 placeholder:text-slate-500 focus:border-sky-400 focus:ring-1 focus:ring-sky-400"
+                      placeholder="Describe the issue in detail (symptoms, when it started, etc.)"
                       value={description}
                       onChange={handleDescription}
                       required

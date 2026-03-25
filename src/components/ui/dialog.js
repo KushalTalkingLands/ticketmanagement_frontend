@@ -23,7 +23,7 @@ function DialogOverlay({ className, ...props }) {
   return (
     <DialogPrimitive.Overlay
       className={cn(
-        "fixed inset-0 z-40 bg-black/60 backdrop-blur-sm",
+        "fixed inset-0 z-40 bg-slate-950/35 backdrop-blur-md",
         "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-0",
         "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-0",
         className
@@ -39,14 +39,19 @@ function DialogContent({ className, children, ...props }) {
       <DialogOverlay />
       <DialogPrimitive.Content
         className={cn(
-          "fixed z-50 grid w-full max-w-xl gap-4 rounded-xl border border-border bg-slate-900/95 p-6 shadow-2xl",
+          "fixed z-50 w-full max-w-2xl",
+          "rounded-2xl border border-white/12 shadow-[0_18px_70px_rgba(15,23,42,0.75)]",
+          "bg-gradient-to-b from-slate-900/75 via-slate-900/70 to-slate-950/70 backdrop-blur-2xl",
+          "relative overflow-hidden",
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-bottom-8 sm:data-[state=open]:slide-in-from-top-10",
           "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:slide-out-to-bottom-8 sm:data-[state=closed]:slide-out-to-top-10",
           className
         )}
         {...props}
       >
-        {children}
+        <div className="pointer-events-none absolute -left-24 -top-24 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 -bottom-28 h-72 w-72 rounded-full bg-rose-400/20 blur-3xl" />
+        <div className="relative grid gap-5 p-6">{children}</div>
       </DialogPrimitive.Content>
     </DialogPortal>
   );
